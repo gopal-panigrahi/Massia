@@ -20,20 +20,15 @@
 
     function getData()
     {
-        $conn = mysqli_connect("localhost","root","","sayali_industries");
+        include 'connectDB.php';
 
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        $sql = "SELECT * FROM customer WHERE customer_name LIKE \"".$_GET['name']."%\";";
+        $sql = "SELECT customer_name,company_name,PID,order_details.CID,drawing_no,qty,DATEDIFF(deadline, CURDATE()) as remainingdays FROM order_details,customer where order_details.CID = customer.CID and customer_name LIKE \"".$_GET['customer']."%\";";
         $result = mysqli_query($conn,$sql);
         $response = array();
         // Push data of each row into response
         while($row = mysqli_fetch_assoc($result)) {
             array_push($response,$row);
         }
-
         //Converts php array into JSON file
         echo json_encode($response);
         mysqli_close($conn);

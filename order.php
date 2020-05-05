@@ -45,18 +45,18 @@
   </div>
 
 <div class="table-wrapper-scroll-y my-custom-scrollbar" style="padding-top: 50px">
-<table class="table table-striped w-75 mx-auto" id="dtDynamicVerticalSc">
+<table class="table table-striped w-75 mx-auto text-center" id="dtDynamicVerticalSc">
   <thead>
     <tr>
-      <th class="th-sm" scope="col">PID</th>
+      <th class="th-sm" scope="col">Customer Name</th>
+			<th class="th-sm" scope="col">Company Name</th>
       <th class="th-sm" scope="col">CID</th>
       <th class="th-sm" scope="col">Drawing No.</th>
-      <th class="th-sm" scope="col">Qnty.</th>
-      <th class="th-sm" scope="col">Status</th>
+      <th class="th-sm" scope="col">Quantity</th>
+      <th class="th-sm" scope="col">Remaining Days</th>
     </tr>
   </thead>
   <tbody id="order_table">
-
   </tbody>
 </table>
 </div>
