@@ -80,7 +80,21 @@
               </tr>
           		<tr>
           			<td><label >Drawing Number </label></td>
-          			<td><input type="text" class="form-control" name="drawing_no" id="Order_drawing_no" placeholder="Drawing Number.."></td>
+          			<td><input type="text" class="form-control" list="drawing_number" name="drawing_no" id="Order_drawing_no" placeholder="Drawing Number">
+                    <datalist id="drawing_number">
+                        <?php
+                            include 'connectDB.php';
+
+                            $sql = "SELECT * FROM rate_card;";
+                            $result = mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                              echo "<option>".$row["drawing_no"]."</option>";
+                            }
+                            mysqli_close($conn);
+                         ?>
+                    </datalist>
+                </td>
           		</tr>
           		<tr>
           			<td><label>Quantity</label></td>

@@ -41,12 +41,8 @@
 
     function postData()
     {
-      $conn = mysqli_connect("localhost","root","","sayali_industries");
+      include 'connectDB.php';
 
-      // Check connection
-      if (!$conn) {
-          die("Connection failed: " . mysqli_connect_error());
-      }
       $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."')";
       if(mysqli_query($conn,$sql))
       {
