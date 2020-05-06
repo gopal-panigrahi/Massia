@@ -14,24 +14,26 @@ function getData(method,url,showdata){
 };
 
 function changestate(pid,stageid){
-      let stage = stageid[stageid.length-1];
-        let url = "changestage.php?pid="+pid+"&stage="+stage;
-        let method = 'GET';
-        getData(method,url,(data)=>{
-          if (data["status"]==1){
-            let classname = "p"+pid;
-            let stages = document.getElementsByClassName(classname);
-            let i;
-            for(i=0;i<=stage-1;i++)
-              stages[i].className+=" active";
-            for(i;i<5;i++)
-              stages[i].className = stages[i].className.replace(/active/g,'');
+      if(confirm(" Confirm Changes")){
+        let stage = stageid[stageid.length-1];
+          let url = "changestage.php?pid="+pid+"&stage="+stage;
+          let method = 'GET';
+          getData(method,url,(data)=>{
+            if (data["status"]==1){
+              let classname = "p"+pid;
+              let stages = document.getElementsByClassName(classname);
+              let i;
+              for(i=0;i<=stage-1;i++)
+                stages[i].className+=" active";
+              for(i;i<5;i++)
+                stages[i].className = stages[i].className.replace(/active/g,'');
 
-          }
-          else{
-            alert("Some Error Occurred");
-          }
-      });
+            }
+            else{
+              alert("Some Error Occurred");
+            }
+        });
+      }
     }
 
 const customerData = (searchtext)=>{
