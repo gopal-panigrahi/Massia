@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $request_method = $_SERVER['REQUEST_METHOD'];
     switch($request_method)
     {
@@ -55,11 +56,16 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
+	    if($_SESSION["login"]==1)	
+	{
             $sql = "INSERT INTO rate_card VALUES ('".$_POST["DrawingNo"]."',".$_POST["Price"].");";
             $result = mysqli_query($conn,$sql);
             mysqli_close($conn);
             header("Location: rate_card.php");
         }
+	    else 
+		echo "Permission Denied";
+	}
     }
 
 
@@ -72,12 +78,17 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+	if($_SESSION["login"]==1)	
+	{
         $sql = "UPDATE rate_card SET price = '".$_POST["Price"]."' WHERE drawing_no = '".$_POST["DrawingNo"]."';";
         echo $sql;
         $result = mysqli_query($conn,$sql);
         mysqli_close($conn);
         header("Location: rate_card.php");
-    }
+        }
+	else
+		echo "Permission Denied"; 
+   }
     function deleteData()
     {
         $conn = mysqli_connect("localhost","root","","sayali_industries");
@@ -86,10 +97,15 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
+	if($_SESSION["login"]==1)	
+	{
         $sql = "DELETE FROM rate_card WHERE drawing_no='".$_POST["DrawingNo"]."';";
 
         $result = mysqli_query($conn,$sql);
         mysqli_close($conn);
         header("Location: rate_card.php");
-    }
+        }
+	else
+		echo "Permission Denied";
+        }
 ?>

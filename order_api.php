@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $request_method = $_SERVER['REQUEST_METHOD'];
     switch($request_method)
     {
@@ -36,6 +37,8 @@
 
     function postData()
     {
+      if($_SESSION["login"]==1)	
+	{
       include 'connectDB.php';
 
       $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."')";
@@ -48,7 +51,10 @@
         echo "error";
       }
       mysqli_close($conn);
-    }
+      }
+      else
+		echo "Permission Denied";
+      }
     function putData()
     {
         echo "pass";

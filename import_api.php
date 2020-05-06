@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $request_method = $_SERVER['REQUEST_METHOD'];
     switch($request_method)
     {
@@ -43,6 +44,8 @@
     }
     function postData()
     {
+	if($_SESSION["login"]==1)	
+	{
         if($_POST)
         { 
             $date=$_POST["date"];
@@ -66,7 +69,10 @@
             $variable=mysqli_query($connect,$que);
         }
         header("Location: import.html");
-    } 
+	}
+	else
+	echo "Permission Denied";    
+	} 
     function putData()
     {
         echo "hii";
