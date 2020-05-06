@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_SESSION["login"]))
 {
-  session_destroy();
+  $_SESSION["login"]=0;
   header("Location: index.php");
 }
 
