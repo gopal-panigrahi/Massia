@@ -47,7 +47,7 @@
       }
       else
       {
-	if($_SESSION["login"]==1)	
+	if($_SESSION["login"]==1)
 	{
         include 'connectDB.php';
 
@@ -60,12 +60,12 @@
         mysqli_close($conn);
 }
 	else
-	echo "Permission Denied";      
+	echo "Permission Denied";
 }
     }
     function putData()
     {
-	if($_SESSION["login"]==1)	
+	if($_SESSION["login"]==1)
 	{
       include 'connectDB.php';
 
@@ -83,7 +83,7 @@
 
     function deleteData()
     {
-if($_SESSION["login"]==1)	
+if($_SESSION["login"]==1)
 	{
       include 'connectDB.php';
 
