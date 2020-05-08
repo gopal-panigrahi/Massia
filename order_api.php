@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $request_method = $_SERVER['REQUEST_METHOD'];
     switch($request_method)
     {
@@ -36,18 +37,17 @@
 
     function postData()
     {
-      include 'connectDB.php';
+        //if($_SESSION["login"]==1)
+        //{
+            include 'connectDB.php';
 
-      $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."')";
-      if(mysqli_query($conn,$sql))
-      {
-        echo "fine";
-        header("Location: index.php");
-      }
-      else{
-        echo "error";
-      }
-      mysqli_close($conn);
+            $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."',FALSE)";
+            if(mysqli_query($conn,$sql)){
+              echo "Ok";
+            }
+            mysqli_close($conn);
+            header("Location: order.php");
+        //}
     }
     function putData()
     {

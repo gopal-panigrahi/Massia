@@ -1,13 +1,14 @@
 ﻿<?php
-    $conn = mysqli_connect("localhost","root","","sayali_industries");
+    include 'connectDB.php';
 
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    session_start();
+
     $sql = "SELECT * FROM stage;";
     $result = mysqli_query($conn,$sql);
-    $temp_session = 2;
+
+    if(!(isset($_SESSION["login"]))){
+      $_SESSION["login"]=0;
+    }
 ?>
 <!DOCTYPE html>
 
@@ -178,12 +179,21 @@
        </span>
    </span>
 
-   <div class="text-right mb-3 " style="padding-right: 2%; padding-top: 3%">
-     <a href="customer.php">
-       <button type="button" class="btn px-md-5" style="background-color: #00e600">
-           <b>PLACE ORDER</b>
-       </button>
-     </a>
+  <div class="d-flex flex-row-reverse bd-highlight pt-4">
+    <button class="btn px-4 mx-2" onclick="location.href='customer.php'" style="background-color: #00e600;">PLACE ORDER</button>
+
+    <?php
+          if($_SESSION["login"]==0){
+    ?>
+          <button class="btn px-4" style="background-color: #00e600;" data-toggle="modal" data-target="#admin_login" >ADMIN LOG IN</button>
+    <?php
+          }
+          else{
+    ?>
+            <button class="btn px-4" style="background-color: #00e600;" onclick="location.href='logout.php'">LOGOUT</button>
+    <?php
+          }
+    ?>
   </div>
 
   <h1 class="display-5 text-center" style="padding-top: 5%; font-size:70px;">CURRENT PRODUCTS</h1>
@@ -191,9 +201,11 @@
       <?php
           while($row = mysqli_fetch_assoc($result)) {
             $onclickaction = "";
-            if($temp_session==2)
+            if(isset($_SESSION["login"]))
             {
-              $onclickaction = 'onclick="changestate('.$row["PID"].',this.id)"';
+                if($_SESSION["login"]==1){
+                  $onclickaction = 'onclick="changestate('.$row["PID"].',this.id)"';
+                }
             }
       ?>
             <div class="md-stepper-horizontal orange" style="padding-top: 50px">
@@ -226,6 +238,34 @@
             </div>
       <?php } ?>
   </div>
+
+
+    <div class="modal fade" id="admin_login">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Log In</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          	<form method="POST" action="login.php" >
+              <table>
+                  <tr><label> Enter Admin Password</label></tr>
+                  <tr> <input class="form-control" type="password" name="pwd" value="" placeholder="Password" required></tr>
+              </table>
+              <br/>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
+                <input type="submit" class="btn btn-success" value="Login">
+              </div>
+          	</form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <script type="text/javascript" src="project.js"></script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

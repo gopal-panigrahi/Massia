@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $request_method = $_SERVER['REQUEST_METHOD'];
     switch($request_method)
     {
@@ -15,12 +16,7 @@
     function getData()
     {
 
-		$conn = mysqli_connect("localhost","root","","sayali_industries");
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
+		    include 'connectDB.php';
         $sql = "SELECT * FROM rate_card"; // WHERE customer_name LIKE \"".$_GET['name']."%\";";
         $result = mysqli_query($conn,$sql);
         $response = array();
@@ -49,47 +45,37 @@
         }
         else
         {
-
-            $conn = mysqli_connect("localhost","root","","sayali_industries");
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+            if($_SESSION["login"]==1)
+            {
+                  include 'connectDB.php';
+                  $sql = "INSERT INTO rate_card VALUES ('".$_POST["DrawingNo"]."',".$_POST["Price"].");";
+                  $result = mysqli_query($conn,$sql);
+                  mysqli_close($conn);
             }
-            $sql = "INSERT INTO rate_card VALUES ('".$_POST["DrawingNo"]."',".$_POST["Price"].");";
-            $result = mysqli_query($conn,$sql);
-            mysqli_close($conn);
             header("Location: rate_card.php");
         }
     }
 
 
-	function putData()
-    {
-
-
-        $conn = mysqli_connect("localhost","root","","sayali_industries");
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        $sql = "UPDATE rate_card SET price = '".$_POST["Price"]."' WHERE drawing_no = '".$_POST["DrawingNo"]."';";
-        echo $sql;
-        $result = mysqli_query($conn,$sql);
-        mysqli_close($conn);
-        header("Location: rate_card.php");
+function putData()
+{
+    	if($_SESSION["login"]==1){
+            include 'connectDB.php';
+            $sql = "UPDATE rate_card SET price = '".$_POST["Price"]."' WHERE drawing_no = '".$_POST["DrawingNo"]."';";
+            $result = mysqli_query($conn,$sql);
+            mysqli_close($conn);
+      }
+      header("Location: rate_card.php");
+}
+function deleteData()
+{
+  if($_SESSION["login"]==1)
+  {
+      include 'connectDB.php';
+      $sql = "DELETE FROM rate_card WHERE drawing_no='".$_POST["DrawingNo"]."';";
+      $result = mysqli_query($conn,$sql);
+      mysqli_close($conn);
     }
-    function deleteData()
-    {
-        $conn = mysqli_connect("localhost","root","","sayali_industries");
-
-            // Check connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-        $sql = "DELETE FROM rate_card WHERE drawing_no='".$_POST["DrawingNo"]."';";
-
-        $result = mysqli_query($conn,$sql);
-        mysqli_close($conn);
-        header("Location: rate_card.php");
-    }
+    header("Location: rate_card.php");
+}
 ?>

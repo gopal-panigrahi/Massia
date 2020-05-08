@@ -1,13 +1,15 @@
 <?php
-    $conn = mysqli_connect("localhost","root","","sayali_industries");
-
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    include 'connectDB.php';
     $sql = "SELECT * FROM rate_card;";
     $result = mysqli_query($conn,$sql);
-    $temp_session = 2;
+
+      session_start();
+      if($_SESSION['login']==0){
+          $disable = "value='Login as Admin' disabled";
+      }
+      else{
+          $disable = '';
+      }
 ?>
 
 <!DOCTYPE html>
@@ -44,9 +46,25 @@
           </span>
        </span>
    </span>
+   <div class="d-flex flex-row-reverse bd-highlight pt-4">
+     <button class="btn px-4 mx-2 btn-primary" data-toggle="modal" data-target="#add" >ADD DRAWING</button>
+
+     <?php
+           if($_SESSION["login"]==0){
+     ?>
+           <button class="btn px-4" style="background-color: #00e600;" data-toggle="modal" data-target="#admin_login" >ADMIN LOG IN</button>
+     <?php
+           }
+           else{
+     ?>
+             <button class="btn px-4" style="background-color: #00e600;" onclick="location.href='logout.php'">LOGOUT</button>
+     <?php
+           }
+     ?>
+   </div>
+
   <h1 class="display-5 text-center" style="padding-top: 10%; font-size:70px;">RATE CARD</h1>
-  <button class="btn btn-primary" data-toggle="modal" data-target="#add" style="float:right;margin-right:10% ">ADD DRAWING</button>
-  <div style="padding-top: 70px">
+
 	<table class="table table-striped w-75 mx-auto">
   <thead>
     <tr>
@@ -112,7 +130,7 @@
           <br/>
           <div class="modal-footer">
             <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-            <input type="submit" class="btn btn-warning" value="Add Drawing">
+            <input type="submit" class="btn btn-primary"  <?php echo $disable; ?>  value="Add Drawing">
           </div>
       	</form>
       </div>
@@ -143,7 +161,7 @@
           <br/>
           <div class="modal-footer">
             <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-            <input type="submit" class="btn btn-danger" value="Delete">
+            <input type="submit" class="btn btn-danger"  <?php echo $disable; ?>  value="Delete">
           </div>
       	</form>
       </div>
@@ -177,13 +195,40 @@
           <br/>
           <div class="modal-footer">
             <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-            <input type="submit" class="btn btn-warning" value="Update">
+            <input type="submit" class="btn btn-warning"  <?php echo $disable; ?>  value="Update">
           </div>
       	</form>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="admin_login">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Log In</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="login.php" >
+          <table>
+              <tr><label> Enter Admin Password</label></tr>
+              <tr> <input class="form-control" type="password" name="pwd" value="" placeholder="Password" required></tr>
+          </table>
+          <br/>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
+            <input type="submit" class="btn btn-success" value="Login">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 

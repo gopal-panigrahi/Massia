@@ -14,24 +14,27 @@ function getData(method,url,showdata){
 };
 
 function changestate(pid,stageid){
-      let stage = stageid[stageid.length-1];
-        let url = "changestage.php?pid="+pid+"&stage="+stage;
-        let method = 'GET';
-        getData(method,url,(data)=>{
-          if (data["status"]==1){
-            let classname = "p"+pid;
-            let stages = document.getElementsByClassName(classname);
-            let i;
-            for(i=0;i<=stage-1;i++)
-              stages[i].className+=" active";
-            for(i;i<5;i++)
-              stages[i].className = stages[i].className.replace(/active/g,'');
+      if(confirm(" Confirm Changes")){
+        let stage = stageid[stageid.length-1];
+          let url = "changestage.php?pid="+pid+"&stage="+stage;
+          let method = 'GET';
+          getData(method,url,(data)=>{
+            if (data["status"]==1){
+              let classname = "p"+pid;
+              let stages = document.getElementsByClassName(classname);
+              let i;
+              for(i=0;i<=stage-1;i++)
+                stages[i].className+=" active";
+              for(i;i<5;i++)
+                stages[i].className = stages[i].className.replace(/active/g,'');
 
-          }
-          else{
-            alert("Some Error Occurred");
-          }
-      });
+            }
+            else{
+              alert("Some Error Occurred");
+            }
+        });
+        location.reload();
+      }
     }
 
 const customerData = (searchtext)=>{
@@ -42,13 +45,12 @@ const customerData = (searchtext)=>{
     let content = "";
     data.forEach(element => {
         content += `<tr id="customer${element.CID}">
-        <th scope="row">${element.CID}</th>
         <td>${element.company_name}</td>
         <td>${element.customer_name}</td>
         <td style="display:none">${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
-        <td><button class="btn btn-primary" onclick="getElementById('Order_CID').value=${element.CID}" data-toggle="modal" data-target="#ord">ORDER</button></td>
+        <td><button class="btn btn-info" onclick="getElementById('Order_CID').value=${element.CID}" data-toggle="modal" data-target="#ord">ORDER</button></td>
         <td><button class="btn btn-warning" onclick="fillupdate(${element.CID})" data-toggle="modal" data-target="#upd">UPDATE</button></td>
         <td><button class="btn btn-danger" onclick="document.getElementById('Delete_cid').value=${element.CID}" data-toggle="modal" data-target="#del">DELETE</button></td>
       </tr>`;

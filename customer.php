@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if($_SESSION['login']==0){
+      $disable = "value='Login as Admin' disabled";
+  }
+  else{
+      $disable = '';
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,11 +42,22 @@
           </span>
        </span>
    </span>
-   <div class="text-right mb-3 " style="padding-right: 2%; padding-top: 3%">
-       <button type="button" class="btn px-md-5" style="background-color: #00e600" data-toggle="modal" data-target="#add_customer" >
-           <b>ADD CUSTOMER</b>
-       </button>
-  </div>
+   <div class="d-flex flex-row-reverse bd-highlight pt-4">
+     <button class="btn px-4 mx-2 btn-primary" data-toggle="modal" data-target="#add_customer" >ADD CUSTOMER</button>
+
+     <?php
+           if($_SESSION["login"]==0){
+     ?>
+           <button class="btn px-4" style="background-color: #00e600;" data-toggle="modal" data-target="#admin_login" >ADMIN LOG IN</button>
+     <?php
+           }
+           else{
+     ?>
+             <button class="btn px-4" style="background-color: #00e600;" onclick="location.href='logout.php'">LOGOUT</button>
+     <?php
+           }
+     ?>
+   </div>
   <h1 class="display-5 text-center" style="padding-top: 10%; font-size:70px;">CUSTOMER DETAILS</h1>
   <div class="input-group w-75 mx-auto my-5">
     <div class="input-group-prepend">
@@ -48,7 +68,6 @@
   <table class="table table-striped w-75 mx-auto text-center">
     <thead>
       <tr>
-        <th>#</th>
         <th>Company</th>
         <th>Name</th>
         <th>Phone</th>
@@ -80,8 +99,7 @@
               </tr>
           		<tr>
           			<td><label >Drawing Number </label></td>
-          			<td><input type="text" class="form-control" list="drawing_number" name="drawing_no" id="Order_drawing_no" placeholder="Drawing Number">
-                    <datalist id="drawing_number">
+          			<td><select class="form-control" name="drawing_no" id="Order_drawing_no">
                         <?php
                             include 'connectDB.php';
 
@@ -93,12 +111,12 @@
                             }
                             mysqli_close($conn);
                          ?>
-                    </datalist>
+                    </select>
                 </td>
           		</tr>
           		<tr>
           			<td><label>Quantity</label></td>
-          			<td><input type="number" class="form-control" name="qty" id="Order_quantity" placeholder="Quantity"></td>
+          			<td><input type="number" class="form-control" name="qty" id="Order_quantity" min="1" placeholder="Quantity"></td>
           		</tr>
           		<tr>
           			<td><label>Deadline </label></td>
@@ -109,9 +127,35 @@
             <br/>
             <div class="modal-footer">
               <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-              <input type="submit" class="btn btn-primary" value="Place Order">
+              <input type="submit" class="btn btn-info" <?php echo $disable; ?> value="Place Order" >
             </div>
         	</form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="admin_login">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Log In</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="login.php" >
+            <table>
+                <tr><label> Enter Admin Password</label></tr>
+                <tr> <input class="form-control" type="password" name="pwd" value="" placeholder="Password" required></tr>
+            </table>
+            <br/>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
+              <input type="submit" class="btn btn-success" value="Login">
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -143,7 +187,7 @@
           		</tr>
           		<tr>
           			<td><label> Phone </label></td>
-          			<td><input type="number" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]+{10}" required></td>
+          			<td><input type="text" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]+{10}" required></td>
           		</tr>
           		<tr>
           			<td><label> Email </label></td>
@@ -153,7 +197,7 @@
             <br/>
             <div class="modal-footer">
               <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-              <input type="submit" class="btn" style="background-color: #00e600" value="Add">
+              <input type="submit" class="btn btn-primary" <?php echo $disable; ?> value="Add" >
             </div>
         	</form>
         </div>
@@ -199,7 +243,7 @@
             <br/>
             <div class="modal-footer">
               <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-              <input type="submit" class="btn btn-warning" value="Update">
+              <input type="submit" class="btn btn-warning" <?php echo $disable; ?> value="Update">
             </div>
         	</form>
         </div>
@@ -224,7 +268,7 @@
             <br/>
             <div class="modal-footer">
               <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-              <input type="submit" class="btn btn-danger" value="Delete">
+              <input type="submit" class="btn btn-danger" <?php echo $disable; ?> value="Delete">
             </div>
         	</form>
         </div>
