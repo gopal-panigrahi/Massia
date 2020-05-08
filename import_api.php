@@ -30,10 +30,10 @@
         $sql = "SELECT * FROM import WHERE name LIKE \"".$_GET['name']."%\";";
         $result = mysqli_query($conn,$sql);
         $response = array();
-        if (mysqli_num_rows($result) > 0) {   
+        if (mysqli_num_rows($result) > 0) {
             // Push data of each row into response
             while($row = mysqli_fetch_assoc($result)) {
-                array_push($response,$row);     
+                array_push($response,$row);
             }
 
             //Converts php array into JSON file
@@ -44,10 +44,10 @@
     }
     function postData()
     {
-	if($_SESSION["login"]==1)	
+	if($_SESSION["login"]==1)
 	{
         if($_POST)
-        { 
+        {
             $date=$_POST["date"];
             $gat=$_POST["gate"];
             $po=$_POST["po"];
@@ -71,8 +71,8 @@
         header("Location: import.html");
 	}
 	else
-	echo "Permission Denied";    
-	} 
+	echo "Permission Denied";
+	}
     function putData()
     {
         echo "hii";

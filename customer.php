@@ -98,7 +98,7 @@
           		</tr>
           		<tr>
           			<td><label>Quantity</label></td>
-          			<td><input type="number" class="form-control" name="qty" id="Order_quantity" placeholder="Quantity"></td>
+          			<td><input type="number" class="form-control" name="qty" id="Order_quantity" min="1" placeholder="Quantity"></td>
           		</tr>
           		<tr>
           			<td><label>Deadline </label></td>
@@ -143,7 +143,7 @@
           		</tr>
           		<tr>
           			<td><label> Phone </label></td>
-          			<td><input type="number" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]+{10}" required></td>
+          			<td><input type="text" class="form-control" name="phone" placeholder="Phone" pattern="[0-9]+{10}" required></td>
           		</tr>
           		<tr>
           			<td><label> Email </label></td>

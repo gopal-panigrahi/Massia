@@ -37,24 +37,32 @@
 
     function postData()
     {
-      if($_SESSION["login"]==1)	
-	{
-      include 'connectDB.php';
+        //if($_SESSION["login"]==1)
+        //{
+            include 'connectDB.php';
 
-      $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."')";
-      if(mysqli_query($conn,$sql))
-      {
-        echo "fine";
-        header("Location: index.php");
-      }
-      else{
-        echo "error";
-      }
-      mysqli_close($conn);
-      }
-      else
-		echo "Permission Denied";
-      }
+            mysqli_autocommit($conn, FALSE);
+            $flag=TRUE;
+
+            $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."',FALSE)";
+            if(!mysqli_query($conn,$sql)){
+              $flag=FALSE;
+            }
+            $sql = "INSERT INTO stage VALUES (null,'".$_POST["qty"]."',0);";
+            if(!mysqli_query($conn,$sql)){
+              $flag=FALSE;
+            }
+
+            if($flag){
+                mysqli_commit($conn);
+            }
+            else{
+              mysqli_rollback($conn);
+            }
+            mysqli_close($conn);
+            //header("Location: order.php");
+        //}
+    }
     function putData()
     {
         echo "pass";
