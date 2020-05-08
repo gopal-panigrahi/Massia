@@ -41,26 +41,12 @@
         //{
             include 'connectDB.php';
 
-            mysqli_autocommit($conn, FALSE);
-            $flag=TRUE;
-
             $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."',FALSE)";
-            if(!mysqli_query($conn,$sql)){
-              $flag=FALSE;
-            }
-            $sql = "INSERT INTO stage VALUES (null,'".$_POST["qty"]."',0);";
-            if(!mysqli_query($conn,$sql)){
-              $flag=FALSE;
-            }
-
-            if($flag){
-                mysqli_commit($conn);
-            }
-            else{
-              mysqli_rollback($conn);
+            if(mysqli_query($conn,$sql)){
+              echo "Ok";
             }
             mysqli_close($conn);
-            //header("Location: order.php");
+            header("Location: order.php");
         //}
     }
     function putData()

@@ -44,34 +44,34 @@
     }
     function postData()
     {
-	if($_SESSION["login"]==1)
-	{
-        if($_POST)
-        {
-            $date=$_POST["date"];
-            $gat=$_POST["gate"];
-            $po=$_POST["po"];
-            $in=$_POST["in"];
-            $out=$_POST["out"];
-            $veh=$_POST["veh"];
-            $name=$_POST["nm"];
-            $add=$_POST["add"];
-            $des=$_POST["des"];
-            $qn=$_POST["qnt"];
-            $res=$_POST["rec"];
+      if($_SESSION["login"]==1)
+      {
+            if($_POST)
+            {
+                $date=$_POST["date"];
+                $gat=$_POST["gate"];
+                $po=$_POST["po"];
+                $in=$_POST["in"];
+                $out=$_POST["out"];
+                $veh=$_POST["veh"];
+                $name=$_POST["nm"];
+                $add=$_POST["add"];
+                $des=$_POST["des"];
+                $qn=$_POST["qnt"];
+                $res=$_POST["rec"];
 
-            $gate=(int)$gat;
-            $qnt=(int)$qn;
+                $gate=(int)$gat;
+                $qnt=(int)$qn;
 
-            $que="insert into import(date,gate_no,po_pr,time_in,time_out,vehicle_no,name,address,description,quantity,received_by) values('".$date."',".$gate.",'".$po."','".$in."','".$out."','".$veh."','".$name."','".$add."','".$des."',".$qnt.",'".$res."');";
+                $que="insert into import(date,gate_no,po_pr,time_in,time_out,vehicle_no,name,address,description,quantity,received_by) values('".$date."',".$gate.",'".$po."','".$in."','".$out."','".$veh."','".$name."','".$add."','".$des."',".$qnt.",'".$res."');";
 
-            $connect=mysqli_connect('localhost','root','','sayali_industries');
-            $variable=mysqli_query($connect,$que);
-        }
-        header("Location: import.html");
-	}
-	else
-	echo "Permission Denied";
+                include 'connectDB.php';
+
+                $variable=mysqli_query($conn,$que);
+                mysqli_close($conn);
+            }
+      }
+      header("Location: import.html");
 	}
     function putData()
     {

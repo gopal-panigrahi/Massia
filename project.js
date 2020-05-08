@@ -33,6 +33,7 @@ function changestate(pid,stageid){
               alert("Some Error Occurred");
             }
         });
+        location.reload();
       }
     }
 
@@ -44,13 +45,12 @@ const customerData = (searchtext)=>{
     let content = "";
     data.forEach(element => {
         content += `<tr id="customer${element.CID}">
-        <th scope="row">${element.CID}</th>
         <td>${element.company_name}</td>
         <td>${element.customer_name}</td>
         <td style="display:none">${element.address}</td>
         <td>${element.phone}</td>
         <td>${element.email}</td>
-        <td><button class="btn btn-primary" onclick="getElementById('Order_CID').value=${element.CID}" data-toggle="modal" data-target="#ord">ORDER</button></td>
+        <td><button class="btn btn-info" onclick="getElementById('Order_CID').value=${element.CID}" data-toggle="modal" data-target="#ord">ORDER</button></td>
         <td><button class="btn btn-warning" onclick="fillupdate(${element.CID})" data-toggle="modal" data-target="#upd">UPDATE</button></td>
         <td><button class="btn btn-danger" onclick="document.getElementById('Delete_cid').value=${element.CID}" data-toggle="modal" data-target="#del">DELETE</button></td>
       </tr>`;

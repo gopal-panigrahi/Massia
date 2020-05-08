@@ -6,7 +6,9 @@
 		if($_POST["pwd"]=='1234')
 		{
 			$_SESSION["login"]=1;
-			header("Location: index.php");
+			if (isset($_SERVER["HTTP_REFERER"])) {
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    	}
 		}
 	}
 ?>

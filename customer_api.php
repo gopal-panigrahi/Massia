@@ -20,7 +20,7 @@
     {
         include 'connectDB.php';
 
-        $sql = "SELECT * FROM customer WHERE customer_name LIKE \"".$_GET['name']."%\";";
+        $sql = "SELECT * FROM customer WHERE customer_name LIKE \"".@$_GET['name']."%\";";
         $result = mysqli_query($conn,$sql);
         $response = array();
         // Push data of each row into response
@@ -47,55 +47,51 @@
       }
       else
       {
-	if($_SESSION["login"]==1)
-	{
-        include 'connectDB.php';
-
-        $sql = "INSERT INTO customer VALUES (null,'".$_POST["customer_name"]."','".$_POST["company_name"]."','".$_POST["address"]."','".$_POST["phone"]."','".$_POST["email"]."')";
-        if(mysqli_query($conn,$sql))
+        if($_SESSION["login"]==1)
         {
-          echo "fine";
-          header("Location: customer.php");
+            include 'connectDB.php';
+
+            $sql = "INSERT INTO customer VALUES (null,'".$_POST["customer_name"]."','".$_POST["company_name"]."','".$_POST["address"]."','".$_POST["phone"]."','".$_POST["email"]."')";
+            if(mysqli_query($conn,$sql))
+            {
+              echo "fine";
+            }
+            mysqli_close($conn);
         }
-        mysqli_close($conn);
-}
-	else
-	echo "Permission Denied";
-}
+        header("Location: customer.php");
+      }
     }
     function putData()
     {
-	if($_SESSION["login"]==1)
-	{
-      include 'connectDB.php';
+      	if($_SESSION["login"]==1)
+      	{
+            include 'connectDB.php';
 
-      $sql = "UPDATE customer SET customer_name='".$_POST["customer_name"]."',company_name='".$_POST["company_name"]."',address='".$_POST["address"]."',phone='".$_POST["phone"]."',email='".$_POST["email"]."' WHERE CID='".$_POST["cid"]."';";
-      if(mysqli_query($conn,$sql))
-      {
-        echo "fine";
-        header("Location: customer.php");
-      }
-      mysqli_close($conn);
-	}
-	else
-	echo "Permission Denied";
+            $sql = "UPDATE customer SET customer_name='".$_POST["customer_name"]."',company_name='".$_POST["company_name"]."',address='".$_POST["address"]."',phone='".$_POST["phone"]."',email='".$_POST["email"]."' WHERE CID='".$_POST["cid"]."';";
+            if(mysqli_query($conn,$sql))
+            {
+              echo "fine";
+            }
+            mysqli_close($conn);
+      	}
+
+      	header("Location: customer.php");
     }
 
-    function deleteData()
-    {
-if($_SESSION["login"]==1)
-	{
-      include 'connectDB.php';
+function deleteData()
+{
+      if($_SESSION["login"]==1)
+      	{
+            include 'connectDB.php';
 
-      $sql = "DELETE FROM customer WHERE CID=".$_POST["cid"].";";
-      if(mysqli_query($conn,$sql))
-      {
-        echo "fine";
-        header("Location: customer.php");
-      }
-      mysqli_close($conn);
-    }
-else
-echo "Permission Denied";
+            $sql = "DELETE FROM customer WHERE CID=".$_POST["cid"].";";
+            if(mysqli_query($conn,$sql))
+            {
+              echo "fine";
+              header("Location: customer.php");
+            }
+            mysqli_close($conn);
+          }
+      header("Location: customer.php");
 }
 ?>
