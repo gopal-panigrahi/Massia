@@ -276,15 +276,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="login.php" >
               <table class="table w-75 mx-auto text-center" id="product_info_table">
               </table>
               <br/>
               <div class="modal-footer">
                 <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-                <input type="submit" class="btn btn-success" value="Login">
               </div>
-            </form>
           </div>
         </div>
       </div>

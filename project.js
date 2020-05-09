@@ -106,18 +106,29 @@ const orderdata = (searchtext)=>{
     let url = "order_api.php?customer="+searchtext;
     let method = 'GET';
     getData(method,url,(data)=>{
-    let content = "";
+    let completed = "",pending = "";
     data.forEach(element => {
-        content += ` <tr>
-      <td>${element.customer_name}</td>
-      <td>${element.company_name}</td>
-      <td>${element.CID}</td>
-      <td>${element.drawing_no}</td>
-      <td>${element.qty}</td>
-      <td>${element.remainingdays}</td>
-    </tr>`;
+      if(element.status == 0){
+            pending += ` <tr>
+          <td>${element.customer_name}</td>
+          <td>${element.company_name}</td>
+          <td>${element.CID}</td>
+          <td>${element.drawing_no}</td>
+          <td>${element.qty}</td>
+          <td>${element.remainingdays}</td>
+        </tr>`;
+      }
+      else{
+          completed += ` <tr>
+        <td>${element.customer_name}</td>
+        <td>${element.company_name}</td>
+        <td>${element.drawing_no}</td>
+        <td>${element.qty}</td>
+      </tr>`;
+      }
     });
-    document.getElementById('order_table').innerHTML = content;
+    document.getElementById('order_table').innerHTML = pending;
+    document.getElementById('history').innerHTML = completed;
 });
 };
 

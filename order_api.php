@@ -23,7 +23,7 @@
     {
         include 'connectDB.php';
 
-        $sql = "SELECT customer_name,company_name,PID,order_details.CID,drawing_no,qty,deadline,DATEDIFF(deadline, CURDATE()) as remainingdays FROM order_details,customer where order_details.CID = customer.CID and customer_name LIKE \"".@$_GET['customer']."%\";";
+        $sql = "SELECT customer_name,company_name,PID,order_details.CID,drawing_no,qty,status,deadline,DATEDIFF(deadline, CURDATE()) as remainingdays FROM order_details,customer where order_details.CID = customer.CID and customer_name LIKE \"".@$_GET['customer']."%\" order by remainingdays;";
         $result = mysqli_query($conn,$sql);
         $response = array();
         // Push data of each row into response
@@ -37,8 +37,8 @@
 
     function postData()
     {
-        //if($_SESSION["login"]==1)
-        //{
+        if($_SESSION["login"]==1)
+        {
             include 'connectDB.php';
 
             $sql = "INSERT INTO order_details VALUES (null,'".$_POST["CID"]."','".$_POST["drawing_no"]."','".$_POST["qty"]."',CURDATE(),'".$_POST["deadline"]."',FALSE)";
@@ -46,8 +46,8 @@
               echo "Ok";
             }
             mysqli_close($conn);
-            header("Location: order.php");
-        //}
+        }
+        header("Location: order.php");
     }
     function putData()
     {

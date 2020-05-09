@@ -33,7 +33,7 @@
       		</span>
    		 </span>
  	 </span>
-	  
+
 	<h1 class="display-5 text-center" style="padding-top: 10%; font-size:70px;">IMPORT DETAILS</h1>
 	<!-- Button trigger modal -->
 	<div class="text-right mb-3 " style="padding-right: 2%">
@@ -89,7 +89,7 @@
 		  		<input type="text" class="form-control" name="veh" placeholder="Vehicle Number">
 		  	</div>
 		  	<div class="col">
-		  		
+
 		  	</div>
 		  </div>
 
@@ -104,7 +104,7 @@
 		  		<input type="text" class="form-control" name="add" placeholder="Address">
 		  	</div>
 		  </div>
-		  
+
 		   <div class="row" style="padding-top: 10px">
 		  	<div class="col">
 		  		<input type="text" class="form-control" name="des" placeholder="Description">
@@ -116,25 +116,16 @@
 
 		   <div class="row" style="padding-top: 10px">
 		  	<div class="col">
-		  		
-		  	</div>
-		  	<div class="col">
-		  		<button class="btn btn-primary">Add More</button>
-		  	</div>
-		  </div>
-
-		   <div class="row" style="padding-top: 10px">
-		  	<div class="col">
 		  		<input type="text" class="form-control" name="rec" placeholder="Received By">
 		  	</div>
 		  </div>
 		  <div class="modal-footer">
         <button type="button" onclick="window.close()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" onclick="">Add Drawing</button>
+        <button type="submit" class="btn btn-primary" onclick="">Add Import</button>
       </div>
 		</form>
       </div>
-      
+
     </div>
   </div>
 </div>
