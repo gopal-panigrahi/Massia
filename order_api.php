@@ -23,7 +23,7 @@
     {
         include 'connectDB.php';
 
-        $sql = "SELECT customer_name,company_name,PID,order_details.CID,drawing_no,qty,DATEDIFF(deadline, CURDATE()) as remainingdays FROM order_details,customer where order_details.CID = customer.CID and customer_name LIKE \"".$_GET['customer']."%\";";
+        $sql = "SELECT customer_name,company_name,PID,order_details.CID,drawing_no,qty,deadline,DATEDIFF(deadline, CURDATE()) as remainingdays FROM order_details,customer where order_details.CID = customer.CID and customer_name LIKE \"".@$_GET['customer']."%\";";
         $result = mysqli_query($conn,$sql);
         $response = array();
         // Push data of each row into response

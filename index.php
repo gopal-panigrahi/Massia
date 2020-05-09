@@ -210,7 +210,7 @@
       ?>
             <div class="md-stepper-horizontal orange" style="padding-top: 50px">
 
-            <div style="text-align: center"><h2>Product <?php echo $row["PID"]; ?></h2></div>
+            <div style="text-align: center"><button class="btn btn-link" onclick="fillinfo(this.id)" id=<?php echo $row["PID"]; ?> data-toggle="modal" data-target="#product_info" >Product <?php echo $row["PID"]; ?> </button></div>
 
 
                   <?php
@@ -266,7 +266,70 @@
       </div>
     </div>
 
+    <div class="modal fade" id="product_info">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">PRODUCT</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="login.php" >
+              <table class="table w-75 mx-auto text-center" id="product_info_table">
+              </table>
+              <br/>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
+                <input type="submit" class="btn btn-success" value="Login">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <script type="text/javascript" src="project.js"></script>
+<script type="text/javascript" >
+  display_product_details("")
+  function fillinfo(id) {
+    products = localStorage.getItem('product_details');
+    products = JSON.parse(products);
+    products.forEach((product) => {
+      if(product.PID == id){
+          let content =
+              `<tr>
+                  <td>Customer Name</td>
+                  <td>${product.customer_name}</td>
+              <tr>
+              <tr>
+                  <td>Company Name</td>
+                  <td>${product.company_name}</td>
+              <tr>
+              <tr>
+                  <td>Drawing Number</td>
+                  <td>${product.drawing_no}</td>
+              <tr>
+              <tr>
+                  <td>Quantity</td>
+                  <td>${product.qty}</td>
+              <tr>
+              <tr>
+                  <td>Deadline</td>
+                  <td>${product.deadline}</td>
+              <tr>
+              <tr>
+                  <td>Days Remaining</td>
+                  <td>${product.remainingdays}</td>
+              <tr>
+              `;
+          document.getElementById('product_info_table').innerHTML = content;
+      }
+    });
+  }
+
+</script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>

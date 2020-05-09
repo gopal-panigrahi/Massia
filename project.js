@@ -120,3 +120,11 @@ const orderdata = (searchtext)=>{
     document.getElementById('order_table').innerHTML = content;
 });
 };
+
+const display_product_details = ()=>{
+    let url = "order_api.php";
+    let method = 'GET';
+    getData(method,url,(data)=>{
+      localStorage.setItem('product_details',JSON.stringify(data));
+    });
+};
