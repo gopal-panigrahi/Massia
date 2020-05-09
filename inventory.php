@@ -1,11 +1,5 @@
-<?php 
-	$conn = mysqli_connect("localhost","root","","sayali_industries");
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        
+<?php
+				include 'connectDB.php';
         $sql = "SELECT * FROM inventory";
         $result = mysqli_query($conn,$sql);
 ?>
@@ -18,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
       <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 
-    
+
     <style type="text/css">
 	    .myfont{
 	      font-size: 1vw;
@@ -55,18 +49,28 @@
       <th class="th-sm text-center" scope="col">Material Id.</th>
       <th class="th-sm text-center" scope="col">Material</th>
       <th class="th-sm text-center" scope="col">Quantity</th>
-      <th class="th-sm text-center" scope="col">Update</th>
     </tr>
   </thead>
   <tbody>
-   		<?php 
+   		<?php
    			while($row = mysqli_fetch_assoc($result)) {
+					$disabled="";
+					if($row["qty"]==0){
+						$disabled = "disabled";
+					}
    		?>
    			<tr>
       			<td class="text-center"><?php echo $row["material_id"]; ?></td>
       			<td class="text-center"><?php echo $row["material"]; ?></td>
-      			<td class="text-center"><?php echo $row["qty"]; ?></td>
-      			<td class="text-center"><input type="button" value="update"></td>
+      			<td class="text-center">
+							<div class="input-group">
+									<span type="text" class="form-control"><?php echo $row["qty"]?></span>
+								<div class="input-group-append">
+									<input class="btn btn-outline-danger" onclick="location.href='decrement_inventory.php?id=<?php echo $row["material_id"];?>'" type="button" <?php echo $disabled?> value="-">
+									<input class="btn btn-outline-success" onclick="location.href='increment_inventory.php?id=<?php echo $row["material_id"];?>'" type="button" value="+">
+								</div>
+							</div>
+					</td>
     		</tr>
    		<?php
    			}
@@ -74,8 +78,9 @@
   </tbody>
 </table>
 </div>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
 
