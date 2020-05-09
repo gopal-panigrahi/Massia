@@ -1,13 +1,13 @@
 <?php
+	session_start();
 
 	$conn = mysqli_connect("localhost","root","","sayali_industries");
 
 	if (!$conn) {
 	    die("Connection failed: " . mysqli_connect_error());
 	}
-	$temp_session = 2;
 
-	if($temp_session!=2){
+	if($_SESSION['login']==0){
 		echo json_encode(array('status' => 0));
 		exit();
 	}

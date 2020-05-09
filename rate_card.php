@@ -3,13 +3,17 @@
     $sql = "SELECT * FROM rate_card;";
     $result = mysqli_query($conn,$sql);
 
-      session_start();
-      if($_SESSION['login']==0){
-          $disable = "value='Login as Admin' disabled";
-      }
-      else{
-          $disable = '';
-      }
+    session_start();
+    if(!(isset($_SESSION["login"]))){
+      $_SESSION["login"]=0;
+    }
+
+    if($_SESSION['login']==0){
+        $disable = "value='Login as Admin' disabled";
+    }
+    else{
+        $disable = '';
+    }
 ?>
 
 <!DOCTYPE html>

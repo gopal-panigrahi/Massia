@@ -1,3 +1,10 @@
+<?php
+		session_start();
+		if(!(isset($_SESSION["login"]))){
+			$_SESSION["login"]=0;
+		}
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
