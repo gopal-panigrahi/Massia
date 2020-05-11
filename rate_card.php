@@ -69,7 +69,7 @@
 
   <h1 class="display-5 text-center" style="padding-top: 10%; font-size:70px;">RATE CARD</h1>
 
-	<table class="table table-striped w-75 mx-auto">
+	<table class="table table-striped w-75 mx-auto text-center">
   <thead>
     <tr>
       <th scope="col">Drawing Number</th>
@@ -86,8 +86,8 @@
     <tr>
         <td><?php echo $row["drawing_no"]; ?></td>
         <td><?php echo $row["price"]; ?></td>
-        <td style="padding-right: 70px;"><button class="btn btn-danger" data-toggle="modal" onclick="document.getElementById('DeleteDrawingNo').value='<?php echo $row["drawing_no"]?>'" data-target="#del">DELETE</button></td>
         <td><button class="btn btn-warning" onclick="document.getElementById('UpdateDrawingNo').value='<?php echo $row["drawing_no"]?>'" data-toggle="modal" data-target="#upd">UPDATE</button></td>
+        <td style="padding-right: 70px;"><button class="btn btn-danger" data-toggle="modal" onclick="document.getElementById('DeleteDrawingNo').value='<?php echo $row["drawing_no"]?>'" data-target="#del">DELETE</button></td>
     </tr>
     <?php
       }
