@@ -180,7 +180,7 @@
    </span>
 
   <div class="d-flex flex-row-reverse bd-highlight pt-4">
-    <button class="btn px-4 mx-2" onclick="location.href='customer.php'" style="background-color: #00e600;">PLACE ORDER</button>
+    <button class="btn px-4 mx-2 btn-primary" onclick="location.href='customer.php'">PLACE ORDER</button>
 
     <?php
           if($_SESSION["login"]==0){

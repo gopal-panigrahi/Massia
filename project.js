@@ -59,8 +59,8 @@ const customerData = (searchtext)=>{
 });
 };
 
-const importData = (searchtext)=>{
-    let url = "import_api.php?name="+searchtext;
+const importData = ()=>{
+    let url = "import_api.php";
     let method = 'GET';
     getData(method,url,(data)=>{
     let content = "";

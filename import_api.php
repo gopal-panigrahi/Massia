@@ -27,7 +27,7 @@
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT * FROM import WHERE name LIKE \"".$_GET['name']."%\";";
+        $sql = "SELECT * FROM import;";
         $result = mysqli_query($conn,$sql);
         $response = array();
         if (mysqli_num_rows($result) > 0) {
@@ -71,7 +71,7 @@
                 mysqli_close($conn);
             }
       }
-      header("Location: import.html");
+      header("Location: import.php");
 	}
     function putData()
     {
